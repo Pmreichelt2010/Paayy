@@ -3,13 +3,21 @@ from gturtle import *
 makeTurtle()
 hideTurtle()
 
-# Schwarzes Rechteck mit Stiftbreite 80
+# Schwarzes Rechteck (gefuellt, mit scharfen Ecken)
 setPenColor("black")
-setPenWidth(80)
+setFillColor("black")
+setPenWidth(1)
 penUp()
-setPos(0, -100)
+setPos(-40, -100)
+setHeading(90)
 penDown()
-setPos(0, 100)
+startPath()
+repeat 2:
+    fd(200)
+    rt(90)
+    fd(80)
+    rt(90)
+fillPath()
 penUp()
 
 # Rotes Licht oben
