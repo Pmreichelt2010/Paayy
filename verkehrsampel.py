@@ -1,36 +1,47 @@
 from gturtle import *
 
 makeTurtle()
-hideTurtle()
+# Turtle startet in der Mitte und schaut nach oben (Norden).
 
-# Schwarzes Rechteck (gefuellt, mit scharfen Ecken)
+# Zur linken unteren Ecke des Rechtecks laufen
+penUp()
+bk(100)
+lt(90)
+fd(40)
+rt(90)
+penDown()
+
+# Schwarzes Rechteck (80 breit, 200 hoch)
 setPenColor("black")
 setFillColor("black")
-setPenWidth(1)
-penUp()
-setPos(-40, -100)
-setHeading(90)
-penDown()
 startPath()
-repeat 2:
-    fd(200)
-    rt(90)
-    fd(80)
-    rt(90)
+fd(200)
+rt(90)
+fd(80)
+rt(90)
+fd(200)
+rt(90)
+fd(80)
 fillPath()
-penUp()
 
-# Rotes Licht oben
-setPos(0, 70)
-setPenColor("red")
+# Zur Position des gruenen Lichts laufen
+penUp()
+rt(90)
+fd(30)
+rt(90)
+fd(40)
+lt(90)
+
+# Gruenes Licht unten
+setPenColor("green")
 dot(50)
 
 # Gelbes Licht in der Mitte
-setPos(0, 0)
+fd(70)
 setPenColor("yellow")
 dot(50)
 
-# Grünes Licht unten
-setPos(0, -70)
-setPenColor("green")
+# Rotes Licht oben
+fd(70)
+setPenColor("red")
 dot(50)
