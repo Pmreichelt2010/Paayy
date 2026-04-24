@@ -1,6 +1,7 @@
 from gturtle import *
 
 makeTurtle()
+setSpeed(10)
 setPenColor("blue")
 
 s = 2
