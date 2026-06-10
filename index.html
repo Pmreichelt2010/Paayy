@@ -176,7 +176,11 @@
     /* ── Trust strip ── */
     .strip { padding: 56px 0 10px; text-align: center; }
     .strip p { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 22px; }
-    .strip-items { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 34px; font-weight: 700; font-size: 16px; color: rgba(28, 42, 35, 0.45); }
+    .strip-items { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 14px; font-weight: 700; font-size: 15px; color: rgba(28, 42, 35, 0.5); }
+    .strip-items span {
+      padding: 8px 18px; border-radius: var(--radius-pill);
+      background: rgba(28, 42, 35, 0.05); border: 1px solid rgba(28, 42, 35, 0.08);
+    }
 
     /* ── Video section ── */
     .video-sec { padding: 90px 0; }
@@ -378,6 +382,8 @@
       .nav-links { display: none; }
       .burger { display: flex; }
       .nav .btn { display: none; }
+      .eyebrow { font-size: 10.5px; letter-spacing: 0.07em; padding: 6px 13px; gap: 6px; white-space: nowrap; }
+      .eyebrow::before { width: 6px; height: 6px; }
       .hero { padding-top: 120px; }
       .feature-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -454,10 +460,10 @@
     <div class="wrap">
       <p>Gemacht für Teams, die im Chat arbeiten</p>
       <div class="strip-items">
-        <span>Gründer-Teams</span><span>·</span>
-        <span>Agenturen</span><span>·</span>
-        <span>Creator-Crews</span><span>·</span>
-        <span>Studienprojekte</span><span>·</span>
+        <span>Gründer-Teams</span>
+        <span>Agenturen</span>
+        <span>Creator-Crews</span>
+        <span>Studienprojekte</span>
         <span>Side-Hustles</span>
       </div>
     </div>
@@ -742,10 +748,11 @@
 
     // Promo-Video automatisch aktivieren, sobald assets/promo.mp4 existiert
     const promo = document.getElementById('promo');
-    promo.addEventListener('loadeddata', () => {
+    promo.addEventListener('loadedmetadata', () => {
       promo.style.display = 'block';
       document.getElementById('promo-placeholder').style.display = 'none';
     });
+    promo.load();
   </script>
 </body>
 </html>
