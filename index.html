@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Päädyy — Der Gruppenchat, der nichts vergisst</title>
-  <meta name="description" content="Päädyy ist der Gruppenchat mit eingebautem KI-Agenten. Geteilte Notizen, Quellen und ein Chat-Gedächtnis, das jede Idee wiederfindet — sogar Sprachnachrichten von vor Monaten.">
+  <title>Grove — Der Gruppenchat, der nichts vergisst</title>
+  <meta name="description" content="Grove ist der Gruppenchat mit eingebautem KI-Agenten. Geteilte Notizen, Quellen und ein Chat-Gedächtnis, das jede Idee wiederfindet — sogar Sprachnachrichten von vor Monaten.">
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,7 +64,7 @@
 
     /* ── Navbar ── */
     .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 130;
       background: rgba(245, 242, 234, 0.85);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(28, 42, 35, 0.07);
@@ -91,6 +91,50 @@
     .btn-ghost { background: var(--white); color: var(--green-900); border: 1.5px solid rgba(28, 42, 35, 0.14); }
     .btn-ghost:hover { border-color: var(--green-700); transform: translateY(-2px); }
     .nav .btn { padding: 11px 22px; font-size: 14px; }
+
+    /* ── Burger & Mobile-Menü ── */
+    .burger {
+      display: none; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      width: 44px; height: 44px; flex: none;
+      background: transparent; border: none; cursor: pointer; padding: 0;
+    }
+    .burger span {
+      display: block; width: 24px; height: 2.5px; border-radius: 2px;
+      background: var(--green-900);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 120;
+      background: var(--cream);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      padding: 90px 24px 40px; text-align: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; }
+    .mobile-menu a:not(.btn) {
+      font-family: "Fraunces", serif; font-size: 32px; font-weight: 600;
+      color: var(--green-900); padding: 12px 20px;
+    }
+    .mobile-menu .btn { margin-top: 22px; font-size: 17px; padding: 16px 34px; }
+    .mobile-menu a {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-menu.open a { opacity: 1; transform: translateY(0); }
+    .mobile-menu.open a:nth-child(1) { transition-delay: 0.08s; }
+    .mobile-menu.open a:nth-child(2) { transition-delay: 0.16s; }
+    .mobile-menu.open a:nth-child(3) { transition-delay: 0.24s; }
+    .mobile-menu.open a:nth-child(4) { transition-delay: 0.32s; }
+    .mobile-menu.open a:nth-child(5) { transition-delay: 0.4s; }
+    .mobile-menu small {
+      position: absolute; bottom: 28px; left: 0; right: 0;
+      color: var(--ink-soft); font-size: 13px;
+    }
 
     /* ── Hero ── */
     .hero { padding: 150px 0 30px; position: relative; text-align: center; }
@@ -332,6 +376,8 @@
     }
     @media (max-width: 640px) {
       .nav-links { display: none; }
+      .burger { display: flex; }
+      .nav .btn { display: none; }
       .hero { padding-top: 120px; }
       .feature-grid { grid-template-columns: 1fr; }
       .about-stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -347,8 +393,8 @@
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="#top">
-        <img src="assets/logo.png" alt="Päädyy Logo">
-        Päädyy
+        <img src="assets/logo.png" alt="Grove Logo">
+        Grove
       </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
@@ -359,8 +405,21 @@
       <a class="btn btn-primary" href="#cta">App ausprobieren
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <!-- ───────── Mobile-Menü ───────── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#how">So funktioniert's</a>
+    <a href="#sources">Quellen &amp; Notizen</a>
+    <a href="#about">Über uns</a>
+    <a class="btn btn-primary" href="#cta">App ausprobieren</a>
+    <small>Grove — der Gruppenchat, der nichts vergisst 🌿</small>
+  </div>
 
   <!-- ───────── Hero ───────── -->
   <section class="hero" id="top">
@@ -368,7 +427,7 @@
       <span class="eyebrow">Gruppenchat · KI-Agent · Geteiltes Wissen</span>
       <h1>Der Gruppenchat, der <em>nichts vergisst.</em></h1>
       <p class="lead">
-        Eure besten Ideen entstehen im Chat — und gehen dort verloren. Päädyy gibt eurem Team
+        Eure besten Ideen entstehen im Chat — und gehen dort verloren. Grove gibt eurem Team
         einen eigenen KI&#8209;Agenten, der jede Nachricht, Sprachnachricht und Quelle wiederfindet.
         Einfach <strong>@AI</strong> fragen.
       </p>
@@ -377,7 +436,7 @@
         <a class="btn btn-ghost" href="#how">So funktioniert's</a>
       </div>
       <div class="hero-shot reveal">
-        <img src="assets/app-desktop.png" alt="Päädyy App — Quellen, Notizen und Gruppenchat in einer Ansicht">
+        <img src="assets/app-desktop.png" alt="Grove App — Quellen, Notizen und Gruppenchat in einer Ansicht">
         <div class="hero-badge badge-left">
           <span class="ico">🎙️</span>
           <span>Sprachnachricht gefunden<small>vom 14. April · Peter</small></span>
@@ -419,8 +478,8 @@
           <div class="play">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </div>
-          <h3>Der Film zu Päädyy</h3>
-          <p>Unser Produktvideo erscheint hier in Kürze. Bis dahin: einfach runterscrollen und selbst sehen, was Päädyy kann.</p>
+          <h3>Der Film zu Grove</h3>
+          <p>Unser Produktvideo erscheint hier in Kürze. Bis dahin: einfach runterscrollen und selbst sehen, was Grove kann.</p>
         </div>
       </div>
     </div>
@@ -432,7 +491,7 @@
       <div class="features-head reveal">
         <span class="eyebrow">Features</span>
         <h2 class="section-title">Ein Chat. Ein Gedächtnis.<br>Ein Agent für alle.</h2>
-        <p class="section-sub">Päädyy verbindet euren Gruppenchat mit einer Wissensdatenbank — und einem KI&#8209;Agenten, der beides versteht.</p>
+        <p class="section-sub">Grove verbindet euren Gruppenchat mit einer Wissensdatenbank — und einem KI&#8209;Agenten, der beides versteht.</p>
       </div>
       <div class="feature-grid">
         <div class="feature-card dark reveal">
@@ -490,14 +549,14 @@
         <h2 class="section-title">Die Idee von vor zwei Monaten? In Sekunden wieder da.</h2>
         <p class="section-sub">
           Stell dir euren Business-Chat vor: Ihr bannert die ganze Zeit starken Content, krasse Ideen —
-          und nutzt sie nie. Mit Päädyy holt ihr alles zurück.
+          und nutzt sie nie. Mit Grove holt ihr alles zurück.
         </p>
         <div class="how-steps">
           <div class="step">
             <div class="step-num">1</div>
             <div>
               <h3>Chattet wie immer</h3>
-              <p>Texte, Sprachnachrichten, Links — euer Gruppenchat bleibt euer Gruppenchat. Päädyy merkt sich alles im Hintergrund.</p>
+              <p>Texte, Sprachnachrichten, Links — euer Gruppenchat bleibt euer Gruppenchat. Grove merkt sich alles im Hintergrund.</p>
             </div>
           </div>
           <div class="step">
@@ -581,7 +640,7 @@
         </div>
       </div>
       <div class="phone-stage reveal">
-        <img src="assets/app-phone.png" alt="Päädyy auf dem Smartphone">
+        <img src="assets/app-phone.png" alt="Grove auf dem Smartphone">
       </div>
     </div>
   </section>
@@ -593,7 +652,7 @@
         <span class="eyebrow">Über uns</span>
         <h2 class="section-title">Gebaut, weil wir es selbst gebraucht haben.</h2>
         <p>
-          Päädyy ist aus einem ganz normalen Gruppenchat entstanden. Ein paar Freunde, ein gemeinsames
+          Grove ist aus einem ganz normalen Gruppenchat entstanden. Ein paar Freunde, ein gemeinsames
           Projekt — und ein Chatverlauf voller guter Ideen, die nach zwei Wochen niemand mehr wiedergefunden hat.
           <strong>Das beste Wissen eures Teams steckt im Chat. Es fehlte nur der Zugriff darauf.</strong>
         </p>
@@ -604,7 +663,7 @@
           ihr sowieso schon redet.
         </p>
         <p>
-          Wir sind ein kleines Team aus Deutschland und bauen Päädyy jeden Tag weiter — nah an den
+          Wir sind ein kleines Team aus Deutschland und bauen Grove jeden Tag weiter — nah an den
           Leuten, die es benutzen.
         </p>
         <div class="about-stats">
@@ -617,7 +676,7 @@
         <blockquote>
           „Wir wollten nie, dass ihr anders arbeitet. Wir wollten, dass euer Chat endlich für euch arbeitet."
         </blockquote>
-        <figcaption>— Das Päädyy-Team</figcaption>
+        <figcaption>— Das Grove-Team</figcaption>
       </figure>
     </div>
   </section>
@@ -639,8 +698,8 @@
   <footer class="footer">
     <div class="wrap footer-inner">
       <a class="brand" href="#top">
-        <img src="assets/logo.png" alt="Päädyy Logo">
-        Päädyy
+        <img src="assets/logo.png" alt="Grove Logo">
+        Grove
       </a>
       <nav class="footer-links">
         <a href="#features">Features</a>
@@ -648,7 +707,7 @@
         <a href="#about">Über uns</a>
         <a href="#cta">Kontakt</a>
       </nav>
-      <small>© 2026 Päädyy · Made with 🌿 in Germany</small>
+      <small>© 2026 Grove · Made with 🌿 in Germany</small>
     </div>
   </footer>
 
@@ -656,6 +715,19 @@
     // Navbar-Schatten beim Scrollen
     const nav = document.getElementById('nav');
     addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+    // Burger-Menü: Klick öffnet/schließt, Klick irgendwo im Menü schließt
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMenu(force) {
+      const open = force !== undefined ? force : !mobileMenu.classList.contains('open');
+      mobileMenu.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burger.addEventListener('click', () => toggleMenu());
+    mobileMenu.addEventListener('click', () => toggleMenu(false));
 
     // Sektionen beim Scrollen einblenden
     const io = new IntersectionObserver((entries) => {
